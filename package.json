@@ -1,0 +1,30 @@
+{
+  "name": "carro-test-automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "@playwright/test": "^1.51.0",
+    "@types/mysql2": "types/mysql2",
+    "@types/node": "^22.13.10",
+    "@typescript-eslint/eslint-plugin": "^8.26.1",
+    "@typescript-eslint/parser": "^8.26.1",
+    "eslint-plugin-playwright": "^2.2.0",
+    "husky": "^9.1.7",
+    "prettier": "3.5.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "mysql2": "^3.9.2"
+  },
+  "scripts": {
+    "lint": "eslint . --ext .ts",
+    "prettier": "prettier --write .",
+    "prepare": "husky"
+  }
+}
