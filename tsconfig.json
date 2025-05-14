@@ -15,7 +15,7 @@
         "./tests/steps/*"
       ],
       "@fixtures/*": [
-        "tests/steps/MY/fixtures/*"
+        "tests/fixtures/*"
       ],
       "@config": [
         "./config"
