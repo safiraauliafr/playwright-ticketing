@@ -1,0 +1,16 @@
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+.idea/
+.vscode/
+/CX*
+.DS_Store
+tests/malaysia/.env
+storageState.json
+.env.staging
+.env
+.auth
