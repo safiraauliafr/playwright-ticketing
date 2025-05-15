@@ -11,6 +11,6 @@ node_modules/
 .DS_Store
 tests/malaysia/.env
 storageState.json
-.env.staging
-.env
+.env.stagingCX
+.env.qa
 .auth
