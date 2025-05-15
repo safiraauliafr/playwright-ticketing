@@ -1,5 +1,4 @@
-import { test } from "@fixtures/MY/AcceptQuotation.fixture";
-import { config } from '@config';
+import { test } from "@/tests/fixtures/MY/Quotation.fixture";
 
 /*Command: 
 $env:TEST_ENV="stagingCX"; npx playwright test tests/e2e/MY/AcceptQuotation_SellTicket_Corporate.spec.ts
