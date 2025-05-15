@@ -18,7 +18,6 @@ export class LoginStep {
     async LoginCaptain(){
         await this.browserUtils.navigateToUrl(config.domains.captain.baseUrl);
         await this.LoginSSO(config.auth.captain.email,config.auth.captain.password);
-        await this.page.waitForTimeout(30000);
     }
 
     async LoginSSO(email: string, password: string) {

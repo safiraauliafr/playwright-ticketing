@@ -1,4 +1,4 @@
-# Carro Test Automation Project - TODO List
+# Carro Automation Script Project - TODO List
 
 ## Project Overview
 
@@ -120,4 +120,4 @@ ESLint, Prettier, and Husky for code quality management.
 - Priority levels may be adjusted based on project requirements
 - Some items may require additional dependencies or infrastructure setup
 - Regular review and updates of this TODO list are recommended
-- Consider team feedback and project needs when implementing improvements 
+- Consider team feedback and project needs when implementing improvements

@@ -1,11 +1,12 @@
-import { test } from "@/tests/steps/MY/fixtures/AcceptQuotation.fixture";
+import { test } from "@fixtures/MY/AcceptQuotation.fixture";
 import { config } from '@config';
 
 /*Command: 
 $env:TEST_ENV="stagingCX"; npx playwright test tests/e2e/MY/AcceptQuotation_SellTicket_Corporate.spec.ts
 $env:TEST_ENV="qa"; npx playwright test tests/e2e/MY/AcceptQuotation_SellTicket_Corporate.spec.ts
 */
-test('Sell Ticket Creation', async ({
+
+test('Accept Quotation', async ({
     login,
     nav,
     sellTicketCreation,
