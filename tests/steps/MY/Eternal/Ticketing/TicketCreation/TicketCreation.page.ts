@@ -1,4 +1,5 @@
 import { Page , expect} from '@playwright/test';
+import { TestDataManager } from '@utils/test-data-manager';
 
 export class TicketCreationPage {
     private page: Page;    
@@ -17,11 +18,14 @@ export class TicketCreationPage {
 
 /*------Action breakdown--------------------------------------*/
     async getIframe() {
-        return this.page.frameLocator('iframe[src*="/tickets-shared/create"]');
+        const iframe = 'iframe[src*="/tickets-shared/create"]';
+        await this.page.waitForSelector(iframe,{state: 'visible', timeout:60000});     
+        return this.page.frameLocator(iframe);
     }
-    async clickBtnNewTicket() {
+    async clickBtnNewTicket() {        
+        await this.page.getByRole('button',{name:'New Ticket'}).click();
         const iframe = await this.getIframe();
-        await this.page.locator('button:has(:text-is("New Ticket"))').click();
+        await iframe.locator('//div[starts-with(@class,"TicketContextSelector__StyledSelector")]').waitFor({state: 'visible'})
     }
     async selectTicketType(ticketType:string) {
         const iframe = await this.getIframe();   
@@ -39,33 +43,44 @@ export class TicketCreationPage {
             }
         }
         await iframe.locator(this.locators.li_option(ticketType)).click();
+        await iframe.locator('//div[starts-with(@class,"SellerTypeSelector__StyledWrapper-")]').waitFor({state: 'visible'});
     }
 
     async selectSellerType(sellerType:string){
         const iframe = await this.getIframe();
         await iframe.locator('//div[starts-with(@class,"SellerTypeSelector__StyledWrapper-")]').click();
-        await iframe.locator('//div[starts-with(@class,"SellerTypeSelector__StyledWrapper-")]//input').fill(sellerType);
         await iframe.locator(this.locators.li_option(sellerType)).click();
-    }
-    async selectFromDropdown(id:string,value:string){
-        const iframe = await this.getIframe();
-        await iframe.locator(this.locators.div_id(id)).click();
-        await iframe.locator(this.locators.input_id(id)).fill(value);
-        await expect(iframe.locator('xpath='+this.locators.li_option(value))).toBeVisible({timeout:7000});
-        await iframe.locator(this.locators.li_option(value)).click();
     }
 
     //CompanyName
     async selectCompanyName(companyName:string){
-        await this.selectFromDropdown('additional_data.company_id',companyName);
+        const iframe = await this.getIframe();
+        await iframe.locator(this.locators.div_id('additional_data.company_id')).waitFor({state: 'visible'});
+        await iframe.locator(this.locators.div_id('additional_data.company_id')).click();
+        await iframe.locator(this.locators.input_id('additional_data.company_id')).fill(companyName);
+        await iframe.locator(this.locators.li_option(companyName)).click();
     }
     //Name
     async selectName(name:string){
         const iframe = await this.getIframe();
-        await iframe.locator('//div[@id="additional_data.user_id"]').click();
-        await iframe.locator('//input[@id="additional_data.user_id"]').fill(name);
-        await expect(iframe.locator(`//li[./*[contains(.,"${name}")]]`)).toBeVisible({timeout:7000});
+        await iframe.locator(this.locators.div_id('additional_data.user_id')).waitFor({state: 'visible'});
+        await iframe.locator(this.locators.div_id('additional_data.user_id')).click();
+        await iframe.locator(this.locators.input_id('additional_data.user_id')).waitFor({state: 'visible'});
+        await iframe.locator(this.locators.input_id('additional_data.user_id')).fill(name);
+        await iframe.locator(`//li[./*[contains(.,"${name}")]]`).waitFor({state: 'visible'});
         await iframe.locator(`//li[./*[contains(.,"${name}")]]`).click();
+    }
+
+    async selectFromDropdown(id:string,value:string){
+        const iframe = await this.getIframe();
+        await iframe.locator(this.locators.div_id(id)).waitFor({state: 'visible'});
+        await iframe.locator(this.locators.div_id(id)).isEnabled();
+        await iframe.locator(this.locators.div_id(id)).click();
+        await iframe.locator(this.locators.input_id(id)).waitFor({state: 'visible'});
+        await iframe.locator(this.locators.input_id(id)).isEnabled();
+        await iframe.locator(this.locators.input_id(id)).fill(value);
+        await iframe.locator(this.locators.li_option(value)).waitFor({state: 'visible'});
+        await iframe.locator(this.locators.li_option(value)).click();
     }
     //Make
     async selectMake(Make:string){
@@ -120,16 +135,18 @@ export class TicketCreationPage {
     }
     async clickAddNewButton(){
         const iframe = await this.getIframe();
-        await iframe.locator('button:has(:text-is("Add New"))').click();
-        const msg = '*:has-text("Ticket created successfully!")'
-        await expect(iframe.locator(msg)).toBeVisible({timeout:10000});
-        const getticketID = await iframe.locator(msg).textContent() || '';
+        await iframe.locator('//button[.="Add New"]').click();
+        const msg = 'Ticket created successfully!';
+        await iframe.getByText(msg).waitFor({state: 'visible',timeout:60000});
+        const getticketID = await iframe.getByText(msg).textContent() || '';
         const TicketID = getticketID?.split('ID: ')[1].trim();
         console.log(TicketID);
+        // const testDataManager = TestDataManager.getInstance();
+        // testDataManager.saveTestData('tickets', 'ticket',TicketID);
         return TicketID;
     }
     async verify_TicketCreatedSuccessfulNotif(ticketID:string){
-        await expect(this.page.locator('*:text-is("Success!")')).toBeVisible({timeout:10000});
-        await expect(this.page.locator(`*:text-is("Ticket ${ticketID} has been created.")`)).toBeVisible({timeout:10000});
+        await this.page.getByText('Success!').waitFor({state: 'visible'});
+        await this.page.getByText(`Ticket ${ticketID} has been created.`).waitFor({state: 'visible'});
     }
 }

@@ -10,7 +10,7 @@ export class TicketDetailsPage {
 /*----Action Breakdown---------------------------------------------------------*/ 
     async ClickLinkToTicketDetails(carplate:string){
         await this.page.locator(`//tr[.//div[text()="${carplate}"]]//a[starts-with(@href,"/tickets/")]`).click();
-        await this.page.waitForLoadState('networkidle');
+        await this.page.waitForLoadState('networkidle',{timeout:20000});
     }
 
     async VerifyHeader_TicketOwnerName(name:string){

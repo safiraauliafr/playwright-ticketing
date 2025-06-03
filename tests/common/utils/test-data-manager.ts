@@ -24,7 +24,8 @@ export class TestDataManager {
             path.join(this.dataDir, 'vehicles'),
             path.join(this.dataDir, 'documents'),
             path.join(this.dataDir, 'transactions'),
-            path.join(this.dataDir, 'environments')
+            path.join(this.dataDir, 'environments'),
+            path.join(this.dataDir, 'tickets')
         ];
 
         directories.forEach(dir => {

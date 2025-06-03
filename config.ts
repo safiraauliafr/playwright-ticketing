@@ -92,7 +92,8 @@ export const config = {
       variant: process.env.DEFAULT_CAR_VARIANT || '1.5E',
       year: process.env.DEFAULT_CAR_YEAR || '2015',
       mileage: process.env.DEFAULT_CAR_MILEAGE || '100000',
-      carPlate: '',
+      carPlate: 'YEEEQATEST00002',
+      ticketID: '',
     },
     payment: {
       cardNumber: process.env.DEFAULT_CARD_NUMBER,

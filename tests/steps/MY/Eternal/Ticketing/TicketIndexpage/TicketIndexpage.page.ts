@@ -8,13 +8,14 @@ export class TicketIndexPage {
     }
 
     locators = {
-        a_LinkToTicket:(carplate:string)=>`//tr[.//div[text()="${carplate}"]]//a[starts-with(@href,"/tickets/")]`,
         obj_TicketRecord:(carplate:string,objValue:string)=>`//tr[.//div[text()="${carplate}"]]//*[text()="${objValue}"]`,
         empty_TicketRecord:(carplate:string,tdnum:string)=>`//tr[.//div[text()="${carplate}"]]//td[${tdnum}]//*[text()="-"]`,
     }
 
     async Verify_TicketCreated(carplate:string){
-        await expect(this.page.locator(this.locators.a_LinkToTicket(carplate))).toBeVisible();
+        const ticketRecord = `//tr[.//div[text()="${carplate}"] and .//*[]]//a[starts-with(@href,"/tickets/")]`
+        await this.page.locator(ticketRecord).waitFor({state:'visible'});
+        await this.page.locator(ticketRecord).isEnabled();        
     }
 
     async Verify_TicketOwnerName(carplate:string,name:string){

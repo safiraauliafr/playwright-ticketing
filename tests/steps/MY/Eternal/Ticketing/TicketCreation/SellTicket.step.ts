@@ -36,7 +36,6 @@ export class SellTicketCreationStep {
         await this.TicketCreation.selectOutstandingLoan('No');
         const ticketID = await this.TicketCreation.clickAddNewButton();
         await this.TicketCreation.verify_TicketCreatedSuccessfulNotif(ticketID);
-        return ticketID;
     }
 
     //Dealer
