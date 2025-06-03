@@ -7,14 +7,8 @@ export class IndexEternal {
         this.page = page;
     }
 
-    locators = {
-        a_LinkToTicket:(carplate:string)=>`//tr[.//div[text()="${carplate}"]]//a[starts-with(@href,"/tickets/")]`,
-
-    }
-
-    async Click_LinkToTicket(carplate:string){
-        
-        await this.page.locator(this.locators.a_LinkToTicket(carplate)).click();
+    async Click_LinkToTicket(carplate:string){        
+        await this.page.locator(`//tr[.//div[text()="${carplate}"]]//a[starts-with(@href,"/tickets/")]`).click();
     }
 
 }

@@ -24,11 +24,6 @@ export class AuctionApptCreationStep {
         await this.appt.SelectStatus('Scheduled');
         await this.appt.SelectInspectionPoint('Glenmarie');
         await this.appt.SelectApptDate_Today();
-
-    }
-
-    async Update_AuctionAppt_Status_ScheduleConfirmed(){
-
     }
 
 
