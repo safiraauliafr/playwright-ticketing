@@ -52,6 +52,7 @@ export class TicketCreationPage {
         await iframe.locator(this.locators.li_option(sellerType)).click();
     }
 
+
     //CompanyName
     async selectCompanyName(companyName:string){
         const iframe = await this.getIframe();
@@ -139,6 +140,7 @@ export class TicketCreationPage {
         const msg = 'Ticket created successfully!';
         await iframe.getByText(msg).waitFor({state: 'visible',timeout:60000});
         const getticketID = await iframe.getByText(msg).textContent() || '';
+        console.log(getticketID);
         const TicketID = getticketID?.split('ID: ')[1].trim();
         console.log(TicketID);
         // const testDataManager = TestDataManager.getInstance();

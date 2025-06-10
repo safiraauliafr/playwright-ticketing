@@ -1,4 +1,4 @@
-import { Page , expect} from '@playwright/test';
+import { Page } from '@playwright/test';
 
 export class IndexEternal {
     private page: Page;    
@@ -9,6 +9,7 @@ export class IndexEternal {
 
     async Click_LinkToTicket(carplate:string){        
         await this.page.locator(`//tr[.//div[text()="${carplate}"]]//a[starts-with(@href,"/tickets/")]`).click();
+        await this.page.waitForLoadState('networkidle',{timeout:20000});
     }
 
 }

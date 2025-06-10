@@ -1,22 +1,22 @@
 import { Page } from '@playwright/test';
 import { TicketIndexPage } from '../TicketIndexpage.page';
-import { SearchEternalStep } from '@common/steps/Eternal/search_Eternal/search_Eternal.step';
+import { EternalStep } from  '@common/steps/Eternal/eternal.step';
 import { config } from '@config';
 
 
 export class IndexBeforeQuotationStep {
     private index: TicketIndexPage;
-    private search: SearchEternalStep;
+    private eternal: EternalStep;
 
     constructor(page: Page) {
         this.index = new TicketIndexPage(page);
-        this.search = new SearchEternalStep(page);
+        this.eternal = new EternalStep(page);
 
     }
 
     async VerifyIndex_SellTicket_Corporate_New() {
         const carplate = config.testData.car.carPlate;
-        await this.search.SearchBy_Carplate(carplate);
+        await this.eternal.SearchBy_Carplate(carplate);
         await this.index.Verify_TicketCreated(carplate);
         await this.index.Verify_TicketOwnerName(carplate, 'Agent 2');
         await this.index.Verify_SellerType(carplate, 'corporate');
