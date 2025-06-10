@@ -18,7 +18,7 @@ export class TicketDetailsPage {
     }
 
     async VerifyHeader_TicketID(ticket_id:string){
-        await expect(this.page.locator('//span[text()="ID"]')).toHaveText('ID\n'+ticket_id);
+        await expect(this.page.getByText(`ID ${ticket_id}`).first()).toBeVisible();
     }
 
     async VerifySidebar_TicketOwnerName(name:string){
@@ -26,7 +26,7 @@ export class TicketDetailsPage {
     }
 
     async VerifySidebar_TicketID(ticket_id:string){
-        await expect(this.page.locator('//div[text()="ID"]')).toHaveText('ID\n'+ticket_id);
+        await expect(this.page.getByText(`ID ${ticket_id}`).nth(1)).toBeVisible();
     }
 
     async VerifySidebar_TicketType(ticket_type:string){

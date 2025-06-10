@@ -20,12 +20,12 @@ export class TestDataManager {
     private ensureDataDirectory(): void {
         const directories = [
             this.dataDir,
-            path.join(this.dataDir, 'users'),
-            path.join(this.dataDir, 'vehicles'),
-            path.join(this.dataDir, 'documents'),
-            path.join(this.dataDir, 'transactions'),
-            path.join(this.dataDir, 'environments'),
-            path.join(this.dataDir, 'tickets')
+            // path.join(this.dataDir, 'users'),
+            // path.join(this.dataDir, 'vehicles'),
+            // path.join(this.dataDir, 'documents'),
+            // path.join(this.dataDir, 'transactions'),
+            // path.join(this.dataDir, 'environments'),
+            path.join(this.dataDir, 'test-data')
         ];
 
         directories.forEach(dir => {

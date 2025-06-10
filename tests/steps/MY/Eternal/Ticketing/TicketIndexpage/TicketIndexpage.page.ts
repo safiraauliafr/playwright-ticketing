@@ -13,7 +13,7 @@ export class TicketIndexPage {
     }
 
     async Verify_TicketCreated(carplate:string){
-        const ticketRecord = `//tr[.//div[text()="${carplate}"] and .//*[]]//a[starts-with(@href,"/tickets/")]`
+        const ticketRecord = `//tr[.//div[text()="${carplate}"]]//a[starts-with(@href,"/tickets/")]`
         await this.page.locator(ticketRecord).waitFor({state:'visible'});
         await this.page.locator(ticketRecord).isEnabled();        
     }

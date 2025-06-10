@@ -42,7 +42,7 @@ export default defineConfig({
                 
           ],
           headless: false,   
-          slowMo: 100,
+          // slowMo: 100,
         },
       },
     }

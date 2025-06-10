@@ -62,12 +62,25 @@ export class AppointmentPage {
         await this.page.locator(`//td[@title="${strTomorrow}"]`).click();   
     }
 
-    async SelectApptTime(time:string){
+    async SelectApptTime(){
         await this.page.locator('//div[starts-with(@class,"ant-row ant-form-item-row ") and .//*[text()="Appointment time"]]//input').click();
-        
+        await this.page.locator('//div[@class="ant-tabs-tabpane ant-tabs-tabpane-active"]//li[.//*[contains(.,"Slot")]]').first().click();        
     }
 
-/*----Steps---------------------------------------------------------*/
+    async clickEditApptButton(){
+        await this.page.locator('//div[@id="Auction_Inspection_Appointment"]//button[.="Edit"]').click();
+    }
+
+    async ClickCreateButton(apptStatus:string){
+        await this.page.locator('//button[.//*[text()="Create"]]').click();
+        await this.page.locator(`//div[@id="Auction_Inspection_Appointment" and .//*[text()="${apptStatus}"]]`).waitFor({state:'visible',timeout:120000});
+    }
+
+    async ClickUpdateButton(apptStatus:string){
+        await this.page.locator('//button[.//*[text()="Update"]]').click();
+        await this.page.locator(`//div[@id="Auction_Inspection_Appointment" and .//*[text()="${apptStatus}"]]`).waitFor({state:'visible',timeout:120000});
+    }
+
 
     
 }
