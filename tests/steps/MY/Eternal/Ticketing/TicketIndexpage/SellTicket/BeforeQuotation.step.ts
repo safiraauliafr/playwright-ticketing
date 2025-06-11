@@ -17,7 +17,7 @@ export class IndexBeforeQuotationStep {
     async VerifyIndex_SellTicket_Corporate_New() {
         const carplate = config.testData.car.carPlate;
         await this.eternal.SearchBy_Carplate(carplate);
-        await this.index.Verify_TicketCreated(carplate);
+        await this.index.Verify_TicketPresent(carplate);
         await this.index.Verify_TicketOwnerName(carplate, 'Agent 2');
         await this.index.Verify_SellerType(carplate, 'corporate');
         await this.index.Verify_GroupName(carplate, 'myTukar');
