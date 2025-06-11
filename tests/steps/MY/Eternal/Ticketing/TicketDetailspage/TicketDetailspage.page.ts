@@ -56,6 +56,10 @@ export class TicketDetailsPage {
     async ClickSubSectionID(sectionID:string){
         await this.page.locator(`//div[@id="${sectionID}"]//div[@class="ant-collapse-expand-icon"]`).click();
     }
+
+    async VerifySubSectionStatus(sectionID:string, status:string){
+        await expect(this.page.locator(`//div[@id="${sectionID}"]//*[text()="${status}"]`)).toBeVisible();
+    }
     
     async VerifyInventory_ObjValue(obj:string,value:string){
         await expect(this.page.locator(`//div[@class="ant-collapse-content ant-collapse-content-active"]//span[text()="${obj}"]/following-sibling::span`)).toHaveText(value);
@@ -97,6 +101,10 @@ export class TicketDetailsPage {
         await this.ClickSubSectionID('Auction_Inspection_Appointment');
     }
 
+    async VerifyAuctInspectionApptStatus(status:string){
+        await this.VerifySubSectionStatus('Auction_Inspection_Appointment',status);
+    }
+
     //2. Obtain Valuation
     //Auction Inspection
     async VerifyAuctionInspection_Blank(){
@@ -104,6 +112,10 @@ export class TicketDetailsPage {
         await expect(this.page.locator('//div[text()="Please await inspection to be completed."]')).toBeVisible();
         await this.ClickSubSectionID('Auction_Inspection');
     }
+    async VerifyAuctInspectionStatus(status:string){
+        await this.VerifySubSectionStatus('Auction_Inspection',status);
+    }
+
     //Quotation
     async VerifyQuotation_Blank(){
         await this.ClickSubSectionID('Quotation');
@@ -112,6 +124,10 @@ export class TicketDetailsPage {
         await this.VerifyQuotation_ObjValue('Estimated recon cost','-');
         await this.VerifyQuotation_ObjValue('Price','-');
         await this.ClickSubSectionID('Quotation');
+    }
+
+    async VerifyQuotationStatus(status:string){
+        await this.VerifySubSectionStatus('Quotation',status);
     }
     //Quotation Inspection
     async VerifyQuotationInspection_Blank(){

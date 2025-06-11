@@ -22,4 +22,14 @@ export class BrowserUtils {
     async goForward(){
         await this.page.goForward();
     }
+
+    async waitForPageLoad(timeout?:number){
+        await this.page.waitForLoadState('load',{timeout:timeout || 30000});
+    }
+
+    async scrollToTop(){
+        await this.page.evaluate(() => {
+            window.scrollTo(0, 0);
+          });
+    }
 }

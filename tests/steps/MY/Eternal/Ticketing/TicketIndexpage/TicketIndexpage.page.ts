@@ -12,7 +12,12 @@ export class TicketIndexPage {
         empty_TicketRecord:(carplate:string,tdnum:string)=>`//tr[.//div[text()="${carplate}"]]//td[${tdnum}]//*[text()="-"]`,
     }
 
-    async Verify_TicketCreated(carplate:string){
+    async ClickLinkToTicketDetails(carplate:string){
+        await this.page.locator(`//tr[.//div[text()="${carplate}"]]//a[starts-with(@href,"/tickets/")]`).click();
+        await this.page.waitForLoadState('networkidle',{timeout:20000});
+    }
+
+    async Verify_TicketPresent(carplate:string){
         const ticketRecord = `//tr[.//div[text()="${carplate}"]]//a[starts-with(@href,"/tickets/")]`
         await this.page.locator(ticketRecord).waitFor({state:'visible'});
         await this.page.locator(ticketRecord).isEnabled();        
@@ -38,11 +43,23 @@ export class TicketIndexPage {
         await expect(this.page.locator(this.locators.obj_TicketRecord(carplate,status))).toBeVisible();
     }
 
+    async Verify_AppointmentStatus(carplate:string,status:string){
+        await expect(this.page.locator(this.locators.obj_TicketRecord(carplate,status))).toBeVisible();
+    }
+
+    async Verify_InspectionStatus(carplate:string,status:string){
+        await expect(this.page.locator(this.locators.obj_TicketRecord(carplate,status))).toBeVisible();
+    }
+
     //Vehicle Details = Make + Model + Submodel + Year
     async Verify_VehicleDetails(carplate:string,value:string){
         await expect(this.page.locator(this.locators.obj_TicketRecord(carplate,value))).toBeVisible();
     }
 
+
+
+
+    //Verify Empty
     async VerifyEmpty_Appointment(carplate:string){
         await expect(this.page.locator(this.locators.empty_TicketRecord(carplate,'5'))).toBeVisible();
     }

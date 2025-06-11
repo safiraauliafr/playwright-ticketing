@@ -6,6 +6,8 @@ dotenv.config({
   override: true,
 })
 
+const projectRoot = process.cwd();
+
 export const config = {
   env: process.env.TEST_ENV || 'qa',
   database: {
@@ -102,6 +104,7 @@ export const config = {
   files: {
     photoPath: process.env.UPLOAD_PHOTO_PATH,
     docPath: process.env.UPLOAD_DOC_PATH,
-    signaturePath: process.env.UPLOAD_SIGNATURE_PATH,
+    signaturePath: process.env.UPLOAD_SIGNATURE_PATH,    
+    uploadPath : path.join(projectRoot,'/upload-file-photo/'),
   },
 }
