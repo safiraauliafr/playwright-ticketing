@@ -1,10 +1,10 @@
 import { Page , expect} from '@playwright/test';
+import { BasePage } from '@basepage';
 
-export class NavCaptainPage {
-    private page: Page;    
+export class NavCaptainPage extends BasePage{
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
     }
     
     async click_liNav(nav:string){

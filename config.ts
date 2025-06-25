@@ -94,7 +94,7 @@ export const config = {
       variant: process.env.DEFAULT_CAR_VARIANT || '1.5E',
       year: process.env.DEFAULT_CAR_YEAR || '2015',
       mileage: process.env.DEFAULT_CAR_MILEAGE || '100000',
-      carPlate: 'YEEEQATEST00018',
+      carPlate: process.env.CAR_PLATE || '',
     },
     payment: {
       cardNumber: process.env.DEFAULT_CARD_NUMBER,
@@ -105,6 +105,6 @@ export const config = {
     photoPath: process.env.UPLOAD_PHOTO_PATH,
     docPath: process.env.UPLOAD_DOC_PATH,
     signaturePath: process.env.UPLOAD_SIGNATURE_PATH,    
-    uploadPath : path.join(projectRoot,'/upload-file-photo/'),
+    uploadPath : path.join(projectRoot,'upload-file-photo/'),
   },
 }

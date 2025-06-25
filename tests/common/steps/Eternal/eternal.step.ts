@@ -1,19 +1,22 @@
 import { Page, expect } from '@playwright/test';
 import { SearchEternalPage } from './pages/search_Eternal.page';
 import { DetailEternalPage } from './pages/detail_Eternal.page';
-import { IndexEternal } from './pages/index_Eternal.page';
+import { IndexEternalPage } from './pages/index_Eternal.page';
+import { SideBarEternalPage } from './pages/sidebar_Eternal.page';
+import { BasePage } from '@basepage';
 
-
-export class EternalStep {
+export class EternalStep extends BasePage{
     private search: SearchEternalPage;
-    private index: IndexEternal;
+    private index: IndexEternalPage;
     private detail: DetailEternalPage;
-    
+    private sidebar: SideBarEternalPage;
 
     constructor(page: Page) {
+        super(page);
         this.search = new SearchEternalPage(page);
-        this.index = new IndexEternal(page);
+        this.index = new IndexEternalPage(page);
         this.detail = new DetailEternalPage(page);
+        this.sidebar = new SideBarEternalPage(page);
     }
 
     //Search
@@ -29,5 +32,14 @@ export class EternalStep {
     //Detail
     async BackToOverview(){
         await this.detail.Click_BackToOverview();
+    }
+
+    //Sidebar
+    /**
+     * This step will navigate to captain page from eternal page
+     * A new tab will be opened
+     */
+    async NavigateToCaptainFromEternal(){
+        await this.sidebar.ClickCaptainLogo();
     }
 }

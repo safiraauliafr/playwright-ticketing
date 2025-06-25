@@ -1,10 +1,10 @@
 import { Page } from '@playwright/test';
+import { BasePage } from '@basepage';
 
-export class SearchEternalPage {
-    private page: Page;    
+export class SearchEternalPage extends BasePage{
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
     }
 
     async SearchByType(type:string,carplate:string){
@@ -13,11 +13,6 @@ export class SearchEternalPage {
         await this.page.locator(`//div[@role="option" and .="${type}"]`).click();
         await this.page.locator('//div[starts-with(@class,"ticket-search ")]//input[@type="text"]').fill(carplate);
         await this.page.locator('//div[starts-with(@class,"ticket-search ")]//button').click();
-        await this.page.locator('//div[@class="ant-spin-container ant-spin-blur"]').waitFor({state:'hidden'});
+        await this.page.locator('//div[@class="ant-spin-container ant-spin-blur"]').waitFor({state:'hidden',timeout:30000});
     }
-
-
-
-
-
 }

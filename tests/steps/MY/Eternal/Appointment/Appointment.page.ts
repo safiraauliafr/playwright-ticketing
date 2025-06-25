@@ -1,11 +1,11 @@
 import { Page , expect} from '@playwright/test';
 import {formatDate} from '@common/utils/date-utils';
+import { BasePage } from '@basepage';
 
-export class AppointmentPage {
-    private page: Page;    
+export class AppointmentPage extends BasePage{
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
     }
 /*----Locators---------------------------------------------------------*/
     locators = {
@@ -30,19 +30,23 @@ export class AppointmentPage {
     
     async SelectApptType(type:string){
         await this.page.locator(this.locators.dropdown_id('appointment_type_id')).click();
+        await this.page.waitForTimeout(1000);
         await this.page.locator(this.locators.option_dropdown(type)).click();
     }
     async SelectStatus(status:string){
         await this.page.locator(this.locators.dropdown_id('status_id')).click();
+        await this.page.waitForTimeout(1000);
         await this.page.locator(this.locators.option_dropdown(status)).click();
     }
     async SelectInspectionPoint(point:string){
         await this.page.locator(this.locators.dropdown_id('location_id')).click();
         await this.page.locator(this.locators.input_id('location_id')).fill(point);
+        await this.page.waitForTimeout(1000);
         await this.page.locator(this.locators.option_dropdown(point)).click();
     }
     async SelectApptDate_Today(){
         await this.page.locator(this.locators.input_id('start_time')).click();
+        await this.page.waitForTimeout(1000);
         await this.page.locator('//a[text()="Today"]').click();
     }
     async getTitleByObj(locator:string){
@@ -51,8 +55,9 @@ export class AppointmentPage {
     }
     async SelectApptDate_Tomorrow(){
         await this.page.locator(this.locators.input_id('start_time')).click();
+        await this.page.waitForTimeout(1000);
         //date format is yyyy-mm-dd
-        const strToday = await this.getTitleByObj('//td[@class="ant-picker-cell ant-picker-cell-in-view ant-picker-cell-today"]');
+        const strToday = await this.getTitleByObj('//td[contains(@class,"ant-picker-cell-in-view ant-picker-cell-today")]');
         const dateToday = new Date(strToday);  
         //Add one day
         const dateTomorrow = new Date(dateToday);
@@ -64,21 +69,25 @@ export class AppointmentPage {
 
     async SelectApptTime(){
         await this.page.locator('//div[starts-with(@class,"ant-row ant-form-item-row ") and .//*[text()="Appointment time"]]//input').click();
+        await this.page.waitForTimeout(1000);
         await this.page.locator('//div[@class="ant-tabs-tabpane ant-tabs-tabpane-active"]//li[.//*[contains(.,"Slot")]]').first().click();        
     }
 
     async clickEditApptButton(){
         await this.page.locator('//div[@id="Auction_Inspection_Appointment"]//button[.="Edit"]').click();
+        await this.page.waitForTimeout(2000);
     }
 
     async ClickCreateButton(apptStatus:string){
-        await this.page.locator('//button[.//*[text()="Create"]]').click();
+        await this.page.locator('//button[.//*[text()="Create"]]').click();        
         await this.page.locator(`//div[@id="Auction_Inspection_Appointment" and .//*[text()="${apptStatus}"]]`).waitFor({state:'visible',timeout:120000});
+        await this.page.waitForTimeout(2000);
     }
 
     async ClickUpdateButton(apptStatus:string){
         await this.page.locator('//button[.//*[text()="Update"]]').click();
         await this.page.locator(`//div[@id="Auction_Inspection_Appointment" and .//*[text()="${apptStatus}"]]`).waitFor({state:'visible',timeout:120000});
+        await this.page.waitForTimeout(2000);
     }
 
 

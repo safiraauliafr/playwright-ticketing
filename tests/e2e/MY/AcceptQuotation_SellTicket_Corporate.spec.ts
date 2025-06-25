@@ -6,22 +6,28 @@ $env:TEST_ENV="qa"; npx playwright test tests/e2e/MY/AcceptQuotation_SellTicket_
 */
 
 test('Accept Quotation', async ({
-    login,
-    nav,
-    eternal,
-    sellTicketCreation,
-    index,
-    detail,
-    apptCreation,
-    apptUpdate,
+    Login,
+    Captain,
+    Eternal,
+    SellTicketCreation,
+    IndexBeforeQuotation,
+    DetailBeforeQuotation,
+    AuctionApptCreation,
+    UpdateAuctionAppt,
+    QuotationInspectionReport,
+    AuctionInspectionReport_withQuotationReport,
 }) => {
-    await login.LoginCaptain();
-    await nav.NavToTickets();    
-    await sellTicketCreation.Submit_SellTicket_Corporate();
-    await eternal.BackToOverview();
-    await index.VerifyIndex_SellTicket_Corporate_New();
-    await detail.VerifyDetails_SellTicket_Corporate('');
-    await apptCreation.Create_AuctionAppt_Scheduled();
-    // await apptUpdate.Update_AuctionAppt_Status_ScheduleConfirmed();
-    
+    await Login.LoginCaptain();
+    await Captain.NavToTickets();    
+    await SellTicketCreation.Submit_SellTicket_Corporate();
+    await IndexBeforeQuotation.VerifyIndex_SellTicket_Corporate_New();
+    await DetailBeforeQuotation.VerifyDetails_SellTicket_Corporate('');
+    await AuctionApptCreation.Create_AuctionAppt_Scheduled();
+    await UpdateAuctionAppt.Update_AuctionAppt_Status_ScheduleConfirmed(); 
+    await Captain.NavToCaptainByUrl();
+    await Captain.NavToWebInspection();
+    await QuotationInspectionReport.StartInspection_QuotationReport();
+    await QuotationInspectionReport.CompleteInspection_QuotationReport();
+    await AuctionInspectionReport_withQuotationReport.ContinueInspection_AuctionReport_fromQuotation();
+    await AuctionInspectionReport_withQuotationReport.VerifyInspection_AuctionReport_withQuotation();
 });

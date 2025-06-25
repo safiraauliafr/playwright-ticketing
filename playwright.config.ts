@@ -5,7 +5,7 @@ export const STORAGE_STATE = path.join(__dirname, 'playwright/.auth/user.json')
 export const RABBIT_STORAGE_STATE = path.join(__dirname, 'playwright/.auth/rabbit.json')
 
 export default defineConfig({
-  timeout: 60000,//global timout
+  timeout: 600000,//global timeout
   testDir: './tests',
   testMatch: '**/*.spec.ts',
   fullyParallel: false,
@@ -42,7 +42,7 @@ export default defineConfig({
                 
           ],
           headless: false,   
-          // slowMo: 100,
+          // slowMo: 500,
         },
       },
     }

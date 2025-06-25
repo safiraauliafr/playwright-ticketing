@@ -1,10 +1,10 @@
 import { Page } from '@playwright/test';
+import { BasePage } from '@basepage';
 
-export class IndexEternal {
-    private page: Page;    
+export class IndexEternalPage extends BasePage{   
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
     }
 
     async Click_LinkToTicket(carplate:string){        

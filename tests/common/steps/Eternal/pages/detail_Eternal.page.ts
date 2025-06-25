@@ -1,10 +1,10 @@
 import { Page } from '@playwright/test';
+import { BasePage } from '@basepage';
 
-export class DetailEternalPage {
-    private page: Page;    
+export class DetailEternalPage extends BasePage{
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
     }
 
     async Click_BackToOverview(){  
