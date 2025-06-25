@@ -1,10 +1,10 @@
 import { Page , expect} from '@playwright/test';
+import { BasePage } from '@basepage';
 
-export class TicketIndexPage {
-    private page: Page;    
+export class TicketIndexPage extends BasePage{
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
     }
 
     locators = {

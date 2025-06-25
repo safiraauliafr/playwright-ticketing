@@ -1,11 +1,11 @@
 import { Page , expect} from '@playwright/test';
 import { TestDataManager } from '@utils/test-data-manager';
+import { BasePage } from '@basepage';
 
-export class TicketCreationPage {
-    private page: Page;    
+export class TicketCreationPage  extends BasePage {   
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
     }
 
 /*-----Locators-----------------------------------------------*/
@@ -118,6 +118,7 @@ export class TicketCreationPage {
             await iframe.locator('//input[@aria-label="additional_data.interchange_true"]').click(); 
         }else if(value=='No'){
             await iframe.locator('//input[@aria-label="additional_data.interchange_false"]').click(); 
+            
         }
     }
     //Carplate additional_data.car_plate

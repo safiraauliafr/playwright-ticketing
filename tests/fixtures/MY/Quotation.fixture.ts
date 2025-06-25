@@ -1,47 +1,57 @@
 import { test as base } from '@playwright/test'
 import { LoginStep } from '@common/steps/Login/login-steps'
-import { NavCaptainStep } from '@common/steps/Captain/nav_captain/nav_captain.step'
+import { CaptainStep } from '@common/steps/Captain/captain.step'
 import { EternalStep } from '@common/steps/Eternal/eternal.step'
 import { SellTicketCreationStep } from '@steps/MY/Eternal/Ticketing/TicketCreation/SellTicket.step'
 import { IndexBeforeQuotationStep } from '@steps/MY/Eternal/Ticketing/TicketIndexpage/SellTicket/BeforeQuotation.step'
 import { DetailBeforeQuotationStep } from '@steps/MY/Eternal/Ticketing/TicketDetailspage/SellTicket/BeforeQuotation.step'
 import { AuctionApptCreationStep } from '@steps/MY/Eternal/Appointment/AuctionApptCreation.step'
 import { UpdateAuctionApptStep } from '@steps/MY/Eternal/Appointment/UpdateAuctionAppt.step'
+import { QuotationInspectionReportStep } from '@steps/MY/WebInspection/QuotationInspectionReport.step'
+import { AuctionInspectionReport_withQuotationReportStep} from '@steps/MY/WebInspection/AuctionInspectionReport_withQuotationReport.step'
 
 
 export const test = base.extend<{
-  login: LoginStep
-  nav: NavCaptainStep
-  eternal: EternalStep
-  sellTicketCreation: SellTicketCreationStep
-  index: IndexBeforeQuotationStep
-  detail: DetailBeforeQuotationStep
-  apptCreation: AuctionApptCreationStep
-  apptUpdate: UpdateAuctionApptStep
+  Login: LoginStep
+  Captain: CaptainStep
+  Eternal: EternalStep
+  SellTicketCreation: SellTicketCreationStep
+  IndexBeforeQuotation: IndexBeforeQuotationStep
+  DetailBeforeQuotation: DetailBeforeQuotationStep
+  AuctionApptCreation: AuctionApptCreationStep
+  UpdateAuctionAppt: UpdateAuctionApptStep
+  QuotationInspectionReport: QuotationInspectionReportStep
+  AuctionInspectionReport_withQuotationReport: AuctionInspectionReport_withQuotationReportStep
 }>({
-  login: async ({ page }, use) => {
+  Login: async ({ page }, use) => {
     await use(new LoginStep(page))
   },
-  nav: async ({ page }, use) => {
-    await use(new NavCaptainStep(page))
+  Captain: async ({ page }, use) => {
+    await use(new CaptainStep(page))
   },
-  eternal: async ({ page }, use) => {
+  Eternal: async ({ page }, use) => {
     await use(new EternalStep(page))
   },
-  sellTicketCreation: async ({ page }, use) => {
+  SellTicketCreation: async ({ page }, use) => {
     await use(new SellTicketCreationStep(page))
   },
-  index: async ({ page }, use) => {
+  IndexBeforeQuotation: async ({ page }, use) => {
     await use(new IndexBeforeQuotationStep(page))
   },
-  detail: async ({ page }, use) => {
+  DetailBeforeQuotation: async ({ page }, use) => {
     await use(new DetailBeforeQuotationStep(page))
   },
-  apptCreation: async ({ page }, use) => {
+  AuctionApptCreation: async ({ page }, use) => {
     await use(new AuctionApptCreationStep(page))
   },
-  apptUpdate: async ({ page }, use) => {
+  UpdateAuctionAppt: async ({ page }, use) => {
     await use(new UpdateAuctionApptStep(page))
-  }
+  },
+  QuotationInspectionReport: async ({ page }, use) => {
+    await use(new QuotationInspectionReportStep(page))
+  },
+  AuctionInspectionReport_withQuotationReport: async ({ page }, use) => {
+    await use(new AuctionInspectionReport_withQuotationReportStep(page))
+  },
 
 })

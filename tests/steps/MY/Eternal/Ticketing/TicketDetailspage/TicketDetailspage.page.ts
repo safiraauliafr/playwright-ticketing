@@ -1,10 +1,10 @@
 import { Page , expect} from '@playwright/test';
+import { BasePage } from '@basepage';
 
-export class TicketDetailsPage {
-    private page: Page;    
+export class TicketDetailsPage extends BasePage {
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
     }
 
 /*----Action Breakdown---------------------------------------------------------*/ 
@@ -134,6 +134,10 @@ export class TicketDetailsPage {
         await this.ClickSubSectionID('Quotation_Inspection');
         await expect(this.page.locator('//span[text()="Please await inspection to be completed."]')).toBeVisible();
         await this.ClickSubSectionID('Quotation_Inspection');
+    }
+
+    async VerifyQuotationInspectionStatus(status:string){
+        await this.VerifySubSectionStatus('Quotation_Inspection',status);
     }
 
     //3. Transaction

@@ -1,10 +1,10 @@
 import { Page , expect} from '@playwright/test';
+import { BasePage } from '@basepage';
 
-export class LoginPage {
-    private page: Page;    
+export class LoginPage extends BasePage{
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
     }
 
     async clickLoginWith() {

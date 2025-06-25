@@ -32,4 +32,45 @@ export class BrowserUtils {
             window.scrollTo(0, 0);
           });
     }
+
+    async switchToTabByUrl(targetUrl: string): Promise<Page> {
+        const pages = this.page.context().pages();
+    
+        for (const page of pages) {
+            await page.waitForLoadState();
+            const currentUrl = page.url();
+    
+            if (currentUrl.includes(targetUrl)) {
+                this.page = page;
+            }
+        }
+    
+        throw new Error(`No page found with URL matching: ${targetUrl}`);
+    }
+
+    async switchToTabByTitle(title: string) {
+        const pages = this.page.context().pages();
+        for (const page of pages) {
+            await page.waitForLoadState();
+            const title = await page.title();
+            if (title.includes(title)) {
+                this.page = page;
+                return;
+            }
+        }
+        throw new Error(`No page found with title matching: ${title}`);
+    }
+
+    async closeTabByTitle(targetTitle: string) {
+        const pages = this.page.context().pages();
+        for (const page of pages) {
+            await page.waitForLoadState();
+            const title = await page.title();
+            if (title.includes(targetTitle)) {
+                await page.close();
+                return;
+            }
+        }
+        throw new Error(`No tab found with title matching: ${targetTitle}`);
+    }
 }

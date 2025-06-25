@@ -1,5 +1,7 @@
 import fs from 'fs';
 import path from 'path';
+import { DataUtils } from './data.utils';
+import { config } from '@config';
 
 export class TestDataManager {
     private static instance: TestDataManager;
@@ -60,4 +62,25 @@ export class TestDataManager {
     public async getEnvironmentData(env: string): Promise<any> {
         return this.loadTestData('environments', env);
     }
+
+        /**
+     * Setup car plate before tests.
+     * Priority: ENV variable > generated plate.
+     */
+    public setupCarPlate(prefix = 'QA'): string {
+        let carPlate = process.env.TEST_CAR_PLATE;
+
+        if (!carPlate) {
+        const timestamp = DataUtils.generatePlateByTimestamp();
+        carPlate = `${prefix}${timestamp}`;
+        console.log(`🔧 [Car Plate] Randomly generated: ${carPlate}`);
+        } else {
+        console.log(`🚗 [Car Plate] Using CLI-defined plate: ${carPlate}`);
+        }
+
+        config.testData.car.carPlate = carPlate;
+        return carPlate;
+    }
+
+
 } 
