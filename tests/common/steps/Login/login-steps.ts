@@ -36,4 +36,30 @@ export class LoginStep {
             await this.loginPage.clickLogin()
         }
     }
+
+    async LoginDealer(){
+        await this.browserUtils.navigateToUrl(config.domains.dealer.baseUrl);
+        await this.LoginSSO(config.auth.dealer.email,config.auth.dealer.password);
+    }
+
+    async SSO_ExistingAccount(email: string, password: string) {
+        await this.loginPage.clickLoginWith();
+        
+        const loginExistingAcc = this.page.locator('//p[@data-testid="username"]')
+        await loginExistingAcc.waitFor({ state: 'visible', timeout: 2000 })
+        const isVisible = await loginExistingAcc.isVisible();
+        if (isVisible) {
+            await loginExistingAcc.click();
+            return;
+        }         
+    
+        await this.loginPage.enterEmail(email);
+        await this.loginPage.enterPassword(password);
+        await this.loginPage.clickLogin();
+    }
+
+    async LoginExistingAccountSSO() {
+        await this.browserUtils.navigateToUrl(config.domains.captain.baseUrl);
+        await this.SSO_ExistingAccount(config.auth.captain.email,config.auth.captain.password);
+    }
 }

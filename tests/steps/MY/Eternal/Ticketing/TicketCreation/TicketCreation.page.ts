@@ -1,4 +1,5 @@
-import { Page , expect} from '@playwright/test';
+import { Locator, Page , expect} from '@playwright/test';
+import {formatDate} from '@common/utils/date-utils';
 import { TestDataManager } from '@utils/test-data-manager';
 import { BasePage } from '@basepage';
 
@@ -13,7 +14,9 @@ export class TicketCreationPage  extends BasePage {
         //dynamic locators
         li_option:(variable:string) => `//li[.="${variable}"]`,
         div_id:(variable:string) => `//div[@id="${variable}"]`,
-        input_id:(variable:string) => `//input[@id="${variable}"]`,       
+        input_id:(variable:string) => `//input[@id="${variable}"]`,  
+        a_href: (variable: string) => `//a[@href="${variable}"]`,
+        btn_text: (variable: string) => `//button[text()="${variable}"]`,     
     } 
 
 /*------Action breakdown--------------------------------------*/
@@ -151,5 +154,92 @@ export class TicketCreationPage  extends BasePage {
     async verify_TicketCreatedSuccessfulNotif(ticketID:string){
         await this.page.getByText('Success!').waitFor({state: 'visible'});
         await this.page.getByText(`Ticket ${ticketID} has been created.`).waitFor({state: 'visible'});
+    }
+
+    //Dealer
+    async selectDropdownById(fieldName: string, option: string, opt?: { idxInput?: number,idxOption?: number }) {
+        const inputId = await this.getValidLocator(`//input[@id='${fieldName}']`,1,opt);
+        await inputId.click();
+        const filledValue = await this.getValidLocator(`//div[text()="${option}"]`,2,opt)
+        await filledValue.click();
+        await this.page.waitForTimeout(1000);
+    }
+
+    async inputById(fieldName: string, value: string) {
+        await this.page.locator(`//input[@id='${fieldName}']`).fill(value);
+        await this.page.waitForTimeout(1000);
+    }
+
+    //Seller Portal
+    async clickMenuSeller() {
+        await this.page.locator(this.locators.a_href('/sellers/appointments')).click();
+    }
+    async clickBookNow() {
+        await this.page.locator(this.locators.a_href('/sellers/appointments/create')).waitFor({ state: 'visible' });
+        await this.page.locator(this.locators.a_href('/sellers/appointments/create')).click();
+    }
+    async inputManufacturedYear() {
+        await this.page.locator(this.locators.input_id('sellerAppointmentForm_licence_plate_number')).click();
+    }
+    async inputCarplate(Carplate: string) {
+        await this.page.locator(this.locators.input_id('sellerAppointmentForm_licence_plate_number')).fill(Carplate);
+    }
+    async getTitleByObj(locator: string) {
+        const title = await this.page.locator(locator).getAttribute('title') || ''; //could be null
+        return title;
+    }
+
+    async SelectApptDate_Tomorrow() {
+        await this.page.locator(this.locators.input_id('sellerAppointmentForm_start_time_full')).click();
+        await this.page.waitForTimeout(1000);
+        //date format is yyyy-mm-dd
+        const strToday = await this.getTitleByObj('//td[contains(@class,"ant-picker-cell-in-view ant-picker-cell-today")]');
+        const dateToday = new Date(strToday);
+        //Add one day
+        const dateTomorrow = new Date(dateToday);
+        dateTomorrow.setDate(dateToday.getDate() + 1);
+        const strTomorrow = formatDate(dateTomorrow, 'yyyy-MM-dd');
+        console.log('strTomorrow: ' + strTomorrow);
+        await this.page.locator(`//td[@title="${strTomorrow}"]`).click();
+    }
+    
+    async SelectApptTime() {
+        await this.page.locator(this.locators.input_id('sellerAppointmentForm_time_slot')).click();
+        await this.page.waitForTimeout(1000);
+        await this.page.locator('//div[@class="ant-select-item ant-select-item-option ant-select-item-option-active"]//div[contains(.,"Slot")]').first().click();
+    }
+    async clickSubmitDealer() {
+        await this.page.waitForTimeout(1000);
+        await this.page.locator(this.locators.btn_text('Submit')).click();
+        await this.page.waitForTimeout(5000);
+    }
+
+    getValidLocator = async (selector: string,typeId: number, opt?: { idxInput?: number, idxOption?: number }): Promise<Locator> => {
+        const locator = this.page.locator(selector)
+        const count = await locator.count()
+
+        // early return if only one index or not found
+        if (count <= 1) {
+            return locator
+        }
+
+        console.log(`[getValidLocator] warn: Unexpected html has ${count} tag html ${selector}`)
+
+        let idx = 0
+        switch (typeId) {
+            case 1 :
+                if (opt != null && opt.idxInput != null){
+                    idx = opt.idxInput
+                }
+                break;
+            case 2:
+                if (opt != null && opt.idxOption != null){
+                    idx = opt.idxOption
+                }
+            default:
+                break;
+        }
+
+        return locator.nth(idx)
     }
 }

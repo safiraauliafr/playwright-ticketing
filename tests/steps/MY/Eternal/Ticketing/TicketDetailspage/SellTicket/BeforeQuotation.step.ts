@@ -30,5 +30,22 @@ export class DetailBeforeQuotationStep {
         await this.detail.VerifyTransaction_Blank();
     }
 
+     async VerifyDetails_SellTicket_Dealer_New(ticketID:string){
+        const carplate = config.testData.car.carPlate;
+        await this.detail.ClickLinkToTicketDetails(carplate);
+        await this.detail.VerifyHeader('Safira Aulia',ticketID);
+        await this.detail.VerifySidebar('Safira Aulia',ticketID,'Sell Portal','New','dealer');
+        await this.detail.ClickSellWorkflowTab();
+        //1. Create Appointment
+        await this.detail.VerifySectionStatus('1. Create appointment','In Progress');
+        await this.detail.VerifyInventory(carplate,'TOYOTA','ALPHARD','ANH10','2021');
+        await this.detail.VerifyAuctInspectionApptStatus('Scheduled');
+        //2. Obtain Valuation
+        await this.detail.ClickMainSection('2. Obtain valuation');
+        await this.detail.VerifyAuctionInspection_Blank();
+        //3. Transaction
+        await this.detail.ClickMainSection('3. Transaction');
+        await this.detail.VerifyTransaction_Blank();
 
+     }
 }

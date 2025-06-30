@@ -27,6 +27,10 @@ export class AppointmentPage extends BasePage{
         }            
         await this.page.locator(btn_CreateNewAppt).click();
     }
+
+    async ClickSubSectionID(sectionID:string){
+        await this.page.locator(`//div[@id="${sectionID}"]//div[@class="ant-collapse-expand-icon"]`).click();
+    }
     
     async SelectApptType(type:string){
         await this.page.locator(this.locators.dropdown_id('appointment_type_id')).click();
