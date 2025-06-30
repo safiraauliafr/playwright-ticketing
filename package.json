@@ -9,7 +9,7 @@
   "type": "commonjs",
   "devDependencies": {
     "@eslint/js": "^9.22.0",
-    "@playwright/test": "^1.52.0",
+    "@playwright/test": "^1.53.1",
     "@types/mysql2": "types/mysql2",
     "@types/node": "^22.13.10",
     "@typescript-eslint/eslint-plugin": "^8.26.1",

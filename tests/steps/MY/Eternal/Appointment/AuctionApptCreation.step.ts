@@ -23,7 +23,7 @@ export class AuctionApptCreationStep {
         await this.appt.ClickBtnCreateNewAppt();
         await this.appt.SelectApptType('Ticket Auction Inspection');
         await this.appt.SelectStatus('Schedule Confirmed');
-        await this.appt.SelectInspectionPoint('USJ');
+        await this.appt.SelectInspectionPoint('Cheras');
         await this.appt.SelectApptDate_Tomorrow();
         await this.appt.SelectApptTime();
         await this.appt.ClickCreateButton('Schedule Confirmed');

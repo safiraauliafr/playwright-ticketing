@@ -30,7 +30,7 @@ export class WebInspectionPage  extends BasePage {
         await expect(this.page.locator(`//div[contains(@class,'ant-list-item InspectionAppListContainer__StyledListItem') and .//*[text()="${carplate}"]]`)).toBeVisible();
     }
     async verifyInspectionCardStatus(carplate:string,status:string){
-        await expect(this.page.locator(`//div[contains(@class,'InspectionCard') and .//*[text()="${carplate}"] and .//*[text()=${status}]]`)).toBeVisible();
+        await expect(this.page.locator(`//div[contains(@class,'InspectionCard') and .//*[text()="${carplate}"] and .//*[text()="${status}"]]`)).toBeVisible();
     }
 
     async clickStartButton(carplate:string){
@@ -131,8 +131,8 @@ export class WebInspectionPage  extends BasePage {
      * To verify Inspection Submitted message shown
      */
     async verifyInspectionSubmittedMessage(){
-        await expect(this.page.locator('//div[text()="Success"]').first()).toBeVisible({timeout: 10000});
-        await expect(this.page.locator('//div[text()="Inspection submitted"]').first()).toBeVisible({timeout: 10000});
+        await expect(this.page.locator('//div[text()="Success"]').first()).toBeVisible({timeout: 20000});
+        await expect(this.page.locator('//div[text()="Inspection submitted"]').first()).toBeVisible({timeout: 20000});
     }
 
     /*

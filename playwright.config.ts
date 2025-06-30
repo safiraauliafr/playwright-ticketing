@@ -14,6 +14,10 @@ export default defineConfig({
   workers: 1,
   reporter: 'html',
   use: {
+    launchOptions: {
+      args: ["--start-maximized"],
+    },
+    screenshot: 'only-on-failure',
     trace: 'on-first-retry',
 
     permissions: ['microphone', 'geolocation'],
@@ -34,16 +38,17 @@ export default defineConfig({
       use: {
         channel: 'chrome',
         viewport: null, // ✅ allow full window size
-        launchOptions: {
-          args: [
-            '--start-maximized',
-            '--window-position=0,0',
-            '--window-size=1920,1080',     
+        headless: false,
+        // launchOptions: {
+        //   args: [
+        //     '--start-maximized',
+        //     '--window-position=0,0',
+        //     '--window-size=1920,1080',     
                 
-          ],
-          headless: false,   
+        //   ],
+          // headless: false,   
           // slowMo: 500,
-        },
+        // },
       },
     }
   ],

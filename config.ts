@@ -63,6 +63,11 @@ export const config = {
         stockControl: true,
       },
     },
+    quotation: {
+      baseUrl: process.env.QUOTATION_BASE_URL || '',
+    } as {
+      baseUrl: string;
+    },
   },
   auth: {
     captain: {

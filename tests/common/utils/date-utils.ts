@@ -10,3 +10,18 @@ export function formatDate(date: Date, format: string): string {
 
     return format.replace(/yyyy|MM|dd|HH|mm|ss/g, matched => map[matched]);
 }
+
+export function TodayDate(date_format: string) {
+    // %d = Day of month 01-31
+    // %b = Month name, short version (Dec)
+    // %B = Month name, full version (December)
+    // %m = Month as a number 01-12
+    // %y = Year, short version, without century (18)
+    // %Y = Year, full version (2018)
+    // %H = Hour 00-23
+    // %I = Hour 00-12
+    // %M = Minute as a zero-padded decimal number(33)
+    // %p = AM/PM 
+    const strftime = require('strftime')
+    return strftime(date_format,new Date())
+}

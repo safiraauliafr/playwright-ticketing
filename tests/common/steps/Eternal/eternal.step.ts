@@ -4,12 +4,17 @@ import { DetailEternalPage } from './pages/detail_Eternal.page';
 import { IndexEternalPage } from './pages/index_Eternal.page';
 import { SideBarEternalPage } from './pages/sidebar_Eternal.page';
 import { BasePage } from '@basepage';
+import { BrowserUtils } from '@utils/browser-utils';
+import { config } from '@config';
+import { LoginStep } from '@common/steps/Login/login-steps'
 
 export class EternalStep extends BasePage{
     private search: SearchEternalPage;
     private index: IndexEternalPage;
     private detail: DetailEternalPage;
     private sidebar: SideBarEternalPage;
+    private browser: BrowserUtils;
+    private Login: LoginStep;
 
     constructor(page: Page) {
         super(page);
@@ -17,6 +22,8 @@ export class EternalStep extends BasePage{
         this.index = new IndexEternalPage(page);
         this.detail = new DetailEternalPage(page);
         this.sidebar = new SideBarEternalPage(page);
+        this.browser = new BrowserUtils(page);
+        this.Login = new LoginStep(page);
     }
 
     //Search
@@ -41,5 +48,11 @@ export class EternalStep extends BasePage{
      */
     async NavigateToCaptainFromEternal(){
         await this.sidebar.ClickCaptainLogo();
+    }
+
+    async NavToEternalByUrl(){
+        await this.page.goto(config.domains.eternal.baseUrl)
+        await this.Login.CheckIfLoginNeeded()
+        await this.browser.waitForPageLoad()
     }
 }

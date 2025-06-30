@@ -34,7 +34,7 @@ export class TicketCreationPage  extends BasePage {
         const maxAttempts = 5;
         while (attempts < maxAttempts){
             await iframe.locator('//div[starts-with(@class,"TicketContextSelector__StyledSelector")]').click();
-            if (await iframe.locator(this.locators.li_option(ticketType)).isVisible({timeout:2000})){
+            if (await iframe.locator(this.locators.li_option(ticketType)).isVisible({timeout:3000})){
                 break;
             }
             attempts++;

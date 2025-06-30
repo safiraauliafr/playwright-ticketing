@@ -25,7 +25,6 @@ export class LoginPage extends BasePage{
         await this.page.click('//button[.="Log in"]');
         await expect(this.page.locator('//h3[text()="Welcome back !"]')).toBeVisible({timeout: 7000});
         await expect(this.page.locator('//div[text()="Successfully logged in"]')).not.toBeVisible({timeout: 15000});
-    }  
-
+    }
     
 }
