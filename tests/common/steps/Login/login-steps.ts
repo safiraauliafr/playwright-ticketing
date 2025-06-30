@@ -26,4 +26,14 @@ export class LoginStep {
         await this.loginPage.enterPassword(password);
         await this.loginPage.clickLogin();
     }
+
+    async CheckIfLoginNeeded() {
+        if (await this.page.locator('//button[contains(.,"Login with")]').count() > 0) {
+            await this.page.locator('//button[contains(.,"Login with")]').click()
+            await this.page.waitForTimeout(2000)
+            await this.loginPage.enterEmail(config.auth.captain.email)
+            await this.loginPage.enterPassword(config.auth.captain.password)
+            await this.loginPage.clickLogin()
+        }
+    }
 }

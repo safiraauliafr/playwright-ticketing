@@ -116,6 +116,11 @@ export class TicketDetailsPage extends BasePage {
         await this.VerifySubSectionStatus('Auction_Inspection',status);
     }
 
+    //Auction
+    async VerifyAuctionStatus(status:string){
+        await this.VerifySubSectionStatus('Auction',status);
+    }
+
     //Quotation
     async VerifyQuotation_Blank(){
         await this.ClickSubSectionID('Quotation');
@@ -129,6 +134,7 @@ export class TicketDetailsPage extends BasePage {
     async VerifyQuotationStatus(status:string){
         await this.VerifySubSectionStatus('Quotation',status);
     }
+    
     //Quotation Inspection
     async VerifyQuotationInspection_Blank(){
         await this.ClickSubSectionID('Quotation_Inspection');

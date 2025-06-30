@@ -9,6 +9,10 @@ import { AuctionApptCreationStep } from '@steps/MY/Eternal/Appointment/AuctionAp
 import { UpdateAuctionApptStep } from '@steps/MY/Eternal/Appointment/UpdateAuctionAppt.step'
 import { QuotationInspectionReportStep } from '@steps/MY/WebInspection/QuotationInspectionReport.step'
 import { AuctionInspectionReport_withQuotationReportStep} from '@steps/MY/WebInspection/AuctionInspectionReport_withQuotationReport.step'
+import { QuotationIndexStep } from '@steps/MY/Quotation/QuotationIndexpage.step'
+import { QuotationDrawerStep } from '@steps/MY/Quotation/QuotationDrawerpage.step'
+import { IndexAfterQuotationStep } from '@steps/MY/Eternal/Ticketing/TicketIndexpage/SellTicket/AfterQuotation.step'
+import { DetailAfterQuotationStep } from '@steps/MY/Eternal/Ticketing/TicketDetailspage/SellTicket/AfterQuotation.step'
 
 
 export const test = base.extend<{
@@ -22,6 +26,10 @@ export const test = base.extend<{
   UpdateAuctionAppt: UpdateAuctionApptStep
   QuotationInspectionReport: QuotationInspectionReportStep
   AuctionInspectionReport_withQuotationReport: AuctionInspectionReport_withQuotationReportStep
+  QuotationIndex: QuotationIndexStep
+  QuotationDrawer: QuotationDrawerStep
+  IndexAfterQuotation: IndexAfterQuotationStep
+  DetailAfterQuotation: DetailAfterQuotationStep
 }>({
   Login: async ({ page }, use) => {
     await use(new LoginStep(page))
@@ -53,5 +61,16 @@ export const test = base.extend<{
   AuctionInspectionReport_withQuotationReport: async ({ page }, use) => {
     await use(new AuctionInspectionReport_withQuotationReportStep(page))
   },
-
+  QuotationIndex: async ({ page }, use) => {
+    await use(new QuotationIndexStep(page))
+  },
+  QuotationDrawer: async ({ page }, use) => {
+    await use(new QuotationDrawerStep(page))
+  },
+  IndexAfterQuotation: async ({ page }, use) => {
+    await use(new IndexAfterQuotationStep(page))
+  },
+  DetailAfterQuotation: async ({ page }, use) => {
+    await use(new DetailAfterQuotationStep(page))
+  },
 })
