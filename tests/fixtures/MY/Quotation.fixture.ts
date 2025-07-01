@@ -30,6 +30,8 @@ export const test = base.extend<{
   QuotationDrawer: QuotationDrawerStep
   IndexAfterQuotation: IndexAfterQuotationStep
   DetailAfterQuotation: DetailAfterQuotationStep
+  Details_SellTicket_Quotation_ToQuote: DetailAfterQuotationStep
+
 }>({
   Login: async ({ page }, use) => {
     await use(new LoginStep(page))
@@ -73,4 +75,7 @@ export const test = base.extend<{
   DetailAfterQuotation: async ({ page }, use) => {
     await use(new DetailAfterQuotationStep(page))
   },
+  Details_SellTicket_Quotation_ToQuote: async ({ page }, use) => {
+    await use(new DetailAfterQuotationStep(page))
+  }
 })

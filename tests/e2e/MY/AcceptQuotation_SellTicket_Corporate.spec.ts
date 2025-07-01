@@ -16,6 +16,7 @@ test('Accept Quotation', async ({
     UpdateAuctionAppt,
     QuotationInspectionReport,
     AuctionInspectionReport_withQuotationReport,
+    Details_SellTicket_Quotation_ToQuote
 }) => {
     await Login.LoginCaptain();
     await Captain.NavToTickets();    
@@ -30,4 +31,5 @@ test('Accept Quotation', async ({
     await QuotationInspectionReport.CompleteInspection_QuotationReport();
     await AuctionInspectionReport_withQuotationReport.ContinueInspection_AuctionReport_fromQuotation();
     await AuctionInspectionReport_withQuotationReport.VerifyInspection_AuctionReport_withQuotation();
+    await Details_SellTicket_Quotation_ToQuote.VerifyDetails_SellTicket_Quotation_ToQuote();
 });
