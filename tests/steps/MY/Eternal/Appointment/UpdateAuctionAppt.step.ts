@@ -15,6 +15,13 @@ export class UpdateAuctionApptStep {
         await this.appt.ClickUpdateButton('Schedule Confirmed');
     }
 
+    async Update_AuctionAppt_Status_ScheduleConfirmedDealer(){
+        await this.appt.ClickSubSectionID('Auction_Inspection_Appointment');
+        await this.appt.clickEditApptButton();
+        await this.appt.SelectStatus('Schedule Confirmed');
+        await this.appt.ClickUpdateButton('Schedule Confirmed');
+    }
+
 
         
 }

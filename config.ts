@@ -46,6 +46,11 @@ export const config = {
     eternal: {
       baseUrl: process.env.ETERNAL_BASE_URL || '',
     },
+    dealer: {
+      baseUrl: process.env.DEALER_BASE_URL || '',
+    } as {
+      baseUrl: string;
+    },
     recond: {
       baseUrl: process.env.RECOND_BASE_URL,
       apiUrl: process.env.RECOND_API_URL,

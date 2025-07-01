@@ -18,9 +18,20 @@ export class WebInspectionPage  extends BasePage {
     }
 
     async SearchInspectionByCarplate(tabName:string, carplate:string){
+        await this.page.waitForTimeout(2000);
         await this.page.locator(`//div[@role="tab" and .="${tabName}"]`).click();
         await this.page.waitForTimeout(2000);
         await this.page.locator('(//span[starts-with(@class,"ant-input-search Search__StyledSearch")]//input)[1]').fill(carplate);
+        await this.page.waitForTimeout(1000);
+        await this.page.locator('(//i[@aria-label="icon: search"])[1]').click();
+        await this.page.waitForTimeout(3000); 
+    }
+
+    async SearchInspectionByCarplate_TabVerified(tabName:string, carplate:string){
+        await this.page.waitForTimeout(2000);
+        await this.page.locator(`//div[@role="tab" and .="${tabName}"]`).click();
+        await this.page.waitForTimeout(2000);
+        await this.page.locator('(//input[@data-translation-key="core.dataList.search_placeholder"])[1]').fill(carplate);
         await this.page.waitForTimeout(1000);
         await this.page.locator('(//i[@aria-label="icon: search"])[1]').click();
         await this.page.waitForTimeout(3000); 
