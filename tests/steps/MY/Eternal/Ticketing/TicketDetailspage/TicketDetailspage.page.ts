@@ -13,6 +13,11 @@ export class TicketDetailsPage extends BasePage {
         await this.page.waitForLoadState('networkidle',{timeout:20000});
     }
 
+    async ClickLinkToTicketDetailsByTicketType(carplate:string, ticketType:string){
+        await this.page.locator(`//tr[.//div[text()="${carplate}"] and .//*[text()="${ticketType}"]]//a[starts-with(@href,"/tickets/")]`).click();
+        await this.page.waitForLoadState('networkidle',{timeout:20000});
+    }
+
     async VerifyHeader_TicketOwnerName(name:string){
         await expect(this.page.locator(`(//div[text()="${name}"])[1]`)).toBeVisible();
     }
@@ -153,18 +158,14 @@ export class TicketDetailsPage extends BasePage {
         await expect(this.page.locator('//div[text()="Accept a Bid Before Creating Transaction"]')).toBeVisible();
         await this.ClickSubSectionID('Transaction');
     }
-    
 
-    
+    async VerifyTransactionStatus(status:string){
+        await this.VerifySubSectionStatus('Transaction',status);
+    }
 
-     
-
-
-
-
-
-
-    
-
+    async VerifyTransactionType_Buy(){
+        await this.ClickSubSectionID('Transaction');
+        await expect(this.page.locator('//div[@id="Transaction"]//*[starts-with(@class,"ant-tag ant-tag-has-color") and text()="Buy"]')).toBeVisible();
+    }
 
 }

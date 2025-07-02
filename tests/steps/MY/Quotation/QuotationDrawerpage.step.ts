@@ -22,4 +22,12 @@ export class QuotationDrawerStep {
         await this.quotation.Search_ByCarplate(carplate)
         await this.quotation.Reject_OfferPrice(carplate)
     }
+
+    async Accept_OfferPrice_fromQuotedTab(){
+        const carplate = config.testData.car.carPlate;
+
+        await this.quotation.Select_TabName("Quoted")
+        await this.quotation.Search_ByCarplate(carplate)
+        await this.quotation.Accept_OfferPrice(carplate);
+    }
 }
