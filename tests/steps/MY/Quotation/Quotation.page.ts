@@ -28,7 +28,8 @@ export class QuotationPage {
     }
 
     async Select_TabName(tab:string) {
-        await this.page.getByRole('tab', { name: tab }).click()
+        await this.page.waitForTimeout(1000)
+        await this.page.getByRole('tab',{ name: `${tab}`}).click()
         await this.page.waitForTimeout(2000)
     }
 
@@ -112,6 +113,26 @@ export class QuotationPage {
         await this.Search_ByCarplate(carplate)
         await this.Click_ActionButton(carplate)
         await expect(this.page.locator(this.obj.HistoricalPrice("Rejected"))).toBeVisible({ timeout: 5000 })
+        await this.Exit_Drawer()
+    }
+
+    async Accept_OfferPrice(carplate:string){
+        const editBtn = '//table[.//*[text()="Offer Price Submitted"]]//span[@aria-label="edit"]';        
+        await this.Click_ActionButton(carplate)
+        await expect(this.page.locator(editBtn)).toBeEnabled();
+        const offerPrice = await this.page.locator('//table[.//*[text()="Offer Price Submitted"]]//*[contains(text(),"RM")]').textContent();
+        await this.page.locator(editBtn).click();
+        await this.page.waitForTimeout(1000);
+        await this.page.locator('//button[.="Accept"]').click();
+        await this.page.locator('//table[.//*[text()="Accepted"]]').waitFor({state: 'visible'});
+        await expect(this.page.locator(`//table[.//*[text()="Accepted"]]//*[contains(text(),"${offerPrice}")]`)).toBeVisible();
+        await this.page.waitForTimeout(2000);
+        await this.Exit_Drawer()
+        await this.NavTo_QuotationPage()
+        await this.Select_TabName("Accepted")
+        await this.Search_ByCarplate(carplate)
+        await this.Click_ActionButton(carplate)
+        await expect(this.page.locator(this.obj.HistoricalPrice("Accepted"))).toBeVisible({ timeout: 5000 })
         await this.Exit_Drawer()
     }
 

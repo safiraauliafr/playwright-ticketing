@@ -67,4 +67,49 @@ export class DetailAfterQuotationStep {
         await this.detail.VerifyQuotationStatus('To Quote');
        
     }
+
+    async VerifyDetails_SellTicket_Quotation_Accepted(){
+
+        const carplate = config.testData.car.carPlate;
+
+        //Sell Ticket
+        await this.detail.ClickLinkToTicketDetailsByTicketType(carplate,"Sell");
+        //Sidebar
+        await this.detail.VerifySidebar_TicketStatus('Buy - Processing');
+        //Sell Workflow
+        await this.detail.ClickSellWorkflowTab();      
+        //2. Obtain Valuation
+        await this.detail.VerifySectionStatus('2. Obtain valuation','In Progress');
+        await this.detail.VerifyQuotationStatus('Accepted');
+        await this.detail.VerifyQuotationInspectionStatus('Completed');        
+        //3. Transaction
+        await this.detail.VerifySectionStatus('3. Transaction','In Progress');
+        await this.detail.VerifyTransactionStatus('Processing');
+        await this.detail.VerifyTransactionType_Buy();
+        await this.browser.goBack();
+    }
+
+    async VerifyDetails_SellBuyInConverted(){
+
+        const carplate = config.testData.car.carPlate;
+        await this.detail.ClickLinkToTicketDetailsByTicketType(carplate,"Sell Buy In - Converted");
+        //Sidebar
+        await this.detail.VerifySidebar_TicketStatus('Created From Lead');
+        await this.detail.VerifySidebar_SellerType('buy-in');
+        await this.detail.VerifySidebar_TicketType('Sell Buy In - Converted');
+        //Sell Workflow
+        await this.detail.ClickSellWorkflowTab();   
+        //1. Create Appointment
+        await this.detail.VerifySectionStatus('1. Create appointment','In Progress');   
+        await this.detail.VerifyAuctInspectionAppt_Blank();
+        //2. Obtain Valuation
+        await this.detail.VerifySectionStatus('2. Obtain valuation','In Progress');
+        await this.detail.VerifyAuctInspectionAppt_Blank();     
+        await this.detail.VerifyQuotation_Blank(); 
+        //3. Transaction
+        await this.detail.VerifySectionStatus('3. Transaction','Next Steps');
+        await this.detail.ClickMainSection('3. Transaction');
+        await this.detail.VerifyTransaction_Blank();
+        await this.browser.goBack();
+    }
 }

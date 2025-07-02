@@ -16,7 +16,10 @@ test('Accept Quotation', async ({
     UpdateAuctionAppt,
     QuotationInspectionReport,
     AuctionInspectionReport_withQuotationReport,
-    Details_SellTicket_Quotation_ToQuote
+    IndexAfterQuotation,
+    DetailAfterQuotation,
+    QuotationDrawer,
+    QuotationIndex,
 }) => {
     await Login.LoginCaptain();
     await Captain.NavToTickets();    
@@ -30,6 +33,19 @@ test('Accept Quotation', async ({
     await QuotationInspectionReport.StartInspection_QuotationReport();
     await QuotationInspectionReport.CompleteInspection_QuotationReport();
     await AuctionInspectionReport_withQuotationReport.ContinueInspection_AuctionReport_fromQuotation();
-    await AuctionInspectionReport_withQuotationReport.VerifyInspection_AuctionReport_withQuotation();
-    await Details_SellTicket_Quotation_ToQuote.VerifyDetails_SellTicket_Quotation_ToQuote();
+    await AuctionInspectionReport_withQuotationReport.VerifyInspection_AuctionReport_withQuotation();    
+    //VerifyIndex_SellTicket_Quotation_ToQuote
+    await DetailAfterQuotation.VerifyDetails_SellTicket_Quotation_ToQuote();
+    await QuotationIndex.NavToQuotationByUrl();
+    await QuotationIndex.VerifyIndex_ToQuoteTab();
+    await QuotationDrawer.Submit_OfferPrice_fromToQuoteTab();
+    await Eternal.NavToEternalByUrl()
+    await IndexAfterQuotation.VerifyIndex_SellTicket_Quotation_Quoted();
+    await DetailAfterQuotation.VerifyDetails_SellTicket_Quotation_Quoted();
+    await QuotationIndex.NavToQuotationByUrl();
+    await QuotationDrawer.Accept_OfferPrice_fromQuotedTab();
+    await Eternal.NavToEternalByUrl()
+    await IndexAfterQuotation.VerifyIndex_SellTicket_Quotation_Accepted();
+    await DetailAfterQuotation.VerifyDetails_SellTicket_Quotation_Accepted();
+    await DetailAfterQuotation.VerifyDetails_SellBuyInConverted();
 });
