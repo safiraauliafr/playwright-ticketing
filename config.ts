@@ -11,10 +11,10 @@ const projectRoot = process.cwd();
 export const config = {
   env: process.env.TEST_ENV || 'qa',
   database: {
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'root',
+    host: process.env.DB_HOST || 'qa-sg-carro-dealer-01.c1duhxueuzpz.ap-southeast-1.rds.amazonaws.com',
+    user: process.env.DB_USER || 'safira',
     password: process.env.DB_PASSWORD || 'root',
-    name: process.env.DB_NAME || 'carro_db',
+    name: process.env.DB_NAME || 'dealer',
     port: parseInt(process.env.DB_PORT || '3306'),
   },
   credentials: {
@@ -104,7 +104,7 @@ export const config = {
       variant: process.env.DEFAULT_CAR_VARIANT || '1.5E',
       year: process.env.DEFAULT_CAR_YEAR || '2015',
       mileage: process.env.DEFAULT_CAR_MILEAGE || '100000',
-      carPlate: process.env.CAR_PLATE || '',
+      carPlate: process.env.CAR_PLATE || 'TESTQA109',
     },
     payment: {
       cardNumber: process.env.DEFAULT_CARD_NUMBER,

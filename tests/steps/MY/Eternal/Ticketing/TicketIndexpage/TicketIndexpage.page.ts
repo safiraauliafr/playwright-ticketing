@@ -59,6 +59,14 @@ export class TicketIndexPage extends BasePage{
         await expect(this.page.locator(`//tr[.//div[text()="${carplate}"]]//td[8]//*[@class="ant-space-item"][2]//*[starts-with(@class,"css-")]`)).toHaveText(status);
     }
 
+    async Verify_TransactionStatus(carplate:string,status:string){
+        await expect(this.page.locator(`(//tr[.//div[text()="${carplate}"]]//td[9]//*[@class="ant-space-item"][2]//*[starts-with(@class,"css-")])[2]`)).toHaveText(status);
+    }
+
+    async Verify_TransactionType(carplate:string,status:string){
+        await expect(this.page.locator(`//tr[.//div[text()="${carplate}"]]//td[9]//*[@class="ant-space-item"][1]//*[starts-with(@class,"css-")]`)).toHaveText(status);
+    }
+
     //Vehicle Details = Make + Model + Submodel + Year
     async Verify_VehicleDetails(carplate:string,value:string){
         await expect(this.page.locator(this.locators.obj_TicketRecord(carplate,value))).toBeVisible();

@@ -34,7 +34,7 @@ export class SellPortalTicketCreationStep {
         await this.DealerTicketCreation.inputById('sellerAppointmentForm_target_price', '155000');
 
         //Inspection Point
-        await this.DealerTicketCreation.selectDropdownById('sellerAppointmentForm_location_id', '(M) ALOR STAR');
+        await this.DealerTicketCreation.selectDropdownById('sellerAppointmentForm_location_id', '(M) BATU PAHAT');
 
         //Select Date and time
         await this.DealerTicketCreation.SelectApptDate_Tomorrow();

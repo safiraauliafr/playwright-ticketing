@@ -121,6 +121,10 @@ export class TicketDetailsPage extends BasePage {
         await this.VerifySubSectionStatus('Auction',status);
     }
 
+    async VerifyTransactionStatus(status:string){
+        await this.VerifySubSectionStatus('Transaction',status);
+    }
+
     //Quotation
     async VerifyQuotation_Blank(){
         await this.ClickSubSectionID('Quotation');
@@ -152,6 +156,12 @@ export class TicketDetailsPage extends BasePage {
         await this.ClickSubSectionID('Transaction');
         await expect(this.page.locator('//div[text()="Accept a Bid Before Creating Transaction"]')).toBeVisible();
         await this.ClickSubSectionID('Transaction');
+    }
+
+    async VerifyTransaction(seller:string, agreedPrice:string){
+        await this.ClickSubSectionID('Inventory');
+        await this.VerifyInventory_ObjValue('| Seller:', seller);
+        await this.VerifyInventory_ObjValue('Agreed Price:', agreedPrice);
     }
     
 

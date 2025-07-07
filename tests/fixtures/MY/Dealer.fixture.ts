@@ -9,6 +9,9 @@ import { AuctionApptCreationStep } from '@steps/MY/Eternal/Appointment/AuctionAp
 import { UpdateAuctionApptStep } from '@steps/MY/Eternal/Appointment/UpdateAuctionAppt.step'
 import { SellPortalTicketCreationStep } from '@steps/MY/DealerPortal/Appointment.step'
 import { StartInspection_AuctionReportStep} from '@steps/MY/WebInspection/AuctionInspectionReportOnly.step'
+import { StartPublishAuctionStep} from '@steps/MY/Auction/PublishAuction.step'
+import { IndexAfterTrxStep } from '@steps/MY/Eternal/Ticketing/TicketIndexpage/SellTicket/AfterTrxGenerated.step'
+import { DetailAfterTrxStep } from '@steps/MY/Eternal/Ticketing/TicketDetailspage/SellTicket/AfterTrxGenerated.step'
 
 
 export const test = base.extend<{
@@ -21,6 +24,11 @@ export const test = base.extend<{
   UpdateAuctionAppt: UpdateAuctionApptStep
   StartInspection_AuctionReport: StartInspection_AuctionReportStep
   sellTicketDealerCreation: SellPortalTicketCreationStep
+  StartPublishAuction: StartPublishAuctionStep
+  UpdateAuctionToEnded: StartPublishAuctionStep
+  IndexAfterTrxGenerated: IndexAfterTrxStep
+  DetailAfterTrxGenerated: DetailAfterTrxStep
+
 }>({
   Login: async ({ page }, use) => {
     await use(new LoginStep(page))
@@ -48,6 +56,18 @@ export const test = base.extend<{
   },
   sellTicketDealerCreation: async ({ page }, use) => {
     await use(new SellPortalTicketCreationStep(page))
+  },
+  StartPublishAuction: async ({ page }, use) => {
+    await use(new StartPublishAuctionStep(page))
+  },
+  UpdateAuctionToEnded: async ({ page }, use) => {
+    await use(new StartPublishAuctionStep(page))
+  },
+  IndexAfterTrxGenerated: async ({ page }, use) => {
+    await use(new IndexAfterTrxStep(page))
+  },
+  DetailAfterTrxGenerated: async ({ page }, use) => {
+    await use(new DetailAfterTrxStep(page))
   }
 
 })

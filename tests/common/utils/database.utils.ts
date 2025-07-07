@@ -20,6 +20,22 @@ export class DatabaseUtils {
     return this.connection
   }
 
+  public static async updateAuctionStatus(auctionId: string): Promise<boolean> {
+  const query = `
+    UPDATE auctions 
+    SET status_id = 9 
+    WHERE id = ? AND country_id = 49
+  `;
+
+  try {
+    const result = await this.query(query, [auctionId]);
+    return true;
+  } catch (error) {
+    console.error('Error updating auction status:', error);
+    return false;
+  }
+}
+
   /**
    * Execute a query and return results
    * @param query SQL query string

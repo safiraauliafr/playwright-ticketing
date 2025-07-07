@@ -194,7 +194,9 @@ export class StartInspection_AuctionReportStep {
 
         //Ticket Index page
         await this.eternal.SearchBy_Carplate(carplate);
+         await this.browser.waitForPageLoad(10000);
         await this.index.Verify_TicketPresent(carplate);
+         await this.browser.waitForPageLoad(10000);
         await this.index.Verify_TicketStatus(carplate,'Inspection Started');
         await this.index.Verify_AppointmentStatus(carplate,'Successful');
         await this.index.Verify_InspectionStatus(carplate,'Pending Verification');   
@@ -246,7 +248,40 @@ export class StartInspection_AuctionReportStep {
         await this.insp.verifyInspectionCardPresent(carplate);
         await this.insp.verifyInspectionCardStatus(carplate,'Verified');
 
+        //Navigate To Eternal
+        await this.browser.navigateToUrl(config.domains.eternal.baseUrl);
+        await this.browser.waitForPageLoad(10000);
+
+        //Ticket Index page
+        await this.eternal.SearchBy_Carplate(carplate);
+        await this.index.Verify_TicketPresent(carplate);
+        await this.index.Verify_TicketStatus(carplate,'Auction Created');
+        await this.index.Verify_AppointmentStatus(carplate,'Successful');
+        await this.index.Verify_InspectionStatus(carplate,'Verified');   
+        await this.page.waitForTimeout(2000);    
+
+        //Ticket Details page
+        await this.index.ClickLinkToTicketDetails(carplate);
+        // Header
+        await this.detail.VerifySidebar_TicketStatus('Auction Created');
+
+        //Sell Workflow
+        await this.detail.ClickSellWorkflowTab();
+        //1. Create Appointment
+        await this.detail.VerifySectionStatus('1. Create appointment','Complete');
+
+        //2. Obtain Valuation
+        await this.detail.VerifySectionStatus('2. Obtain valuation','In Progress');
+        await this.detail.VerifyAuctInspectionStatus('Verified');
+        await this.detail.VerifyAuctionStatus('Ready to Publish');
+        
+        //3. Transaction
+        await this.detail.VerifySectionStatus('3. Transaction','Next Steps');
+        await this.detail.ClickMainSection('3. Transaction');
+        await this.detail.VerifyTransaction_Blank();
+        await this.page.waitForTimeout(2000);
 
     }
 
+    
 }

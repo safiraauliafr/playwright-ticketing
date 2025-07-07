@@ -15,6 +15,11 @@ test('X2B Transaction Created After Award Auction to Non-Mytukar Dealer for Sell
     DetailBeforeQuotation,
     UpdateAuctionAppt,
     StartInspection_AuctionReport,
+    StartPublishAuction,
+    UpdateAuctionToEnded,
+    IndexAfterTrxGenerated,
+    DetailAfterTrxGenerated
+
 }) => {
     await LoginDealer.LoginDealer();
     await sellTicketDealerCreation.Submit_SellPortalTicket_Dealer();
@@ -28,4 +33,9 @@ test('X2B Transaction Created After Award Auction to Non-Mytukar Dealer for Sell
     await StartInspection_AuctionReport.StartInspection_AuctionReport();
     await StartInspection_AuctionReport.CompleteInspection_AuctionReport();
     await StartInspection_AuctionReport.VerifyInspection_AuctionReport();
+    await StartPublishAuction.PublishAuction_FromAuctionDetailsPage();
+    await StartPublishAuction.UpdateAuction_ToEnded_FromDB('');
+    await StartPublishAuction.AwardAuction_Winner_NonMytukarDealer();
+    await IndexAfterTrxGenerated.VerifyIndex_SellPortalTicket_Dealer_X2B_Processing();
+    await DetailAfterTrxGenerated.VerifyDetails_SellPortalTicket_Dealer_X2B_Processing();
 });
