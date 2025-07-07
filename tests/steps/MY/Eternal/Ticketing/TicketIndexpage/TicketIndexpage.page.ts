@@ -12,6 +12,22 @@ export class TicketIndexPage extends BasePage{
         empty_TicketRecord:(carplate:string,tdnum:string)=>`//tr[.//div[text()="${carplate}"]]//td[${tdnum}]//*[text()="-"]`,
     }
 
+    async FilterBySellerType(sellerType:string){
+        await this.page.locator('//button[.="Filter"]').click();
+        await this.page.waitForTimeout(1000);
+        await this.page.locator('//div[@class="ant-select-selector" and .//input[@id="sellerType"]]').click();
+        await this.page.waitForTimeout(1000);
+        await this.page.locator(`//*[@title="${sellerType}"]`).click();
+        await this.page.waitForTimeout(1000);
+        await this.page.locator('//button[.="Done"]').click();
+        await this.page.waitForTimeout(1000);
+    }
+
+    async ClearFilter(){
+        await this.page.locator('//span[@class="anticon anticon-close ant-tag-close-icon"]').click();
+        await this.page.waitForTimeout(1000);
+    }
+
     async ClickLinkToTicketDetails(carplate:string){
         await this.page.locator(`//tr[.//div[text()="${carplate}"]]//a[starts-with(@href,"/tickets/")]`).click();
         await this.page.waitForLoadState('networkidle',{timeout:20000});
@@ -72,8 +88,10 @@ export class TicketIndexPage extends BasePage{
         await expect(this.page.locator(this.locators.obj_TicketRecord(carplate,value))).toBeVisible();
     }
 
-
-
+    //Buy transaction status
+    async Verify_BuyTransactionStatus(carplate:string,status:string){
+        await expect(this.page.locator(`//tr[.//*[text()="${carplate}"] and .//*[text()="Buy"]]//*[text()="${status}"]`)).toBeVisible();
+    }
 
     //Verify Empty
     async VerifyEmpty_Appointment(carplate:string){

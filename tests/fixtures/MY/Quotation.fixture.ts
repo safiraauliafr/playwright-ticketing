@@ -1,4 +1,6 @@
 import { test as base } from '@playwright/test'
+import { enableHighlighting } from "@utils/highlight-patch"
+
 import { LoginStep } from '@common/steps/Login/login-steps'
 import { CaptainStep } from '@common/steps/Captain/captain.step'
 import { EternalStep } from '@common/steps/Eternal/eternal.step'
@@ -33,6 +35,11 @@ export const test = base.extend<{
   Details_SellTicket_Quotation_ToQuote: DetailAfterQuotationStep
 
 }>({
+
+  page: async ({ page }, use) => {
+    enableHighlighting(page); 
+    await use(page);
+  },
   Login: async ({ page }, use) => {
     await use(new LoginStep(page))
   },
@@ -75,7 +82,4 @@ export const test = base.extend<{
   DetailAfterQuotation: async ({ page }, use) => {
     await use(new DetailAfterQuotationStep(page))
   },
-  Details_SellTicket_Quotation_ToQuote: async ({ page }, use) => {
-    await use(new DetailAfterQuotationStep(page))
-  }
 })

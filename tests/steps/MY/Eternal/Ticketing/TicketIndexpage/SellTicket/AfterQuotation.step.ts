@@ -41,4 +41,27 @@ export class IndexAfterQuotationStep {
         await this.index.Verify_AuctionStatus(carplate, 'Ready to Publish')
     }
 
+    async VerifyIndex_SellTicket_Quotation_Accepted(){
+        const carplate = config.testData.car.carPlate;
+        
+        await this.eternal.SearchBy_Carplate(carplate);  
+        
+        //Sell Ticket
+        await this.index.FilterBySellerType('Corporate');  
+        await this.index.Verify_TicketType(carplate,'Sell');
+        await this.index.Verify_TicketStatus(carplate,'Buy - Processing');
+        await this.index.Verify_QuotationStatus(carplate,'Accepted');
+        await this.index.Verify_BuyTransactionStatus(carplate,'Processing');
+
+        //Buy In Ticket
+        await this.index.FilterBySellerType('Buy In');
+        await this.index.Verify_TicketType(carplate,'Sell Buy In - Converted');
+        await this.index.Verify_TicketStatus(carplate,'Created From Lead');
+        await this.index.VerifyEmpty_Appointment(carplate);
+        await this.index.VerifyEmpty_Inspection(carplate);
+        await this.index.VerifyEmpty_Quotation(carplate);
+        await this.index.VerifyEmpty_Transaction(carplate);        
+        await this.index.ClearFilter();
+    }
+
 }
