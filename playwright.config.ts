@@ -4,6 +4,7 @@ import path from 'path'
 export const STORAGE_STATE = path.join(__dirname, 'playwright/.auth/user.json')
 export const RABBIT_STORAGE_STATE = path.join(__dirname, 'playwright/.auth/rabbit.json')
 
+// 
 export default defineConfig({
   timeout: 600000,//global timeout
   testDir: './tests',

@@ -1,5 +1,5 @@
 
-# Playwright
+# Playwright Don't Add These Files
 node_modules/
 /test-results/
 /playwright-report/
@@ -14,3 +14,7 @@ storageState.json
 .env.stagingCX
 .env.qa
 .auth
+.prettierignore
+.prettierrc
+/.husky/
+/car-data/

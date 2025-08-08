@@ -1,3 +1,5 @@
+// Playwright Config
+
 {
   "compilerOptions": {
     "baseUrl": ".",

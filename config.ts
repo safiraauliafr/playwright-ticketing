@@ -11,10 +11,10 @@ const projectRoot = process.cwd();
 export const config = {
   env: process.env.TEST_ENV || 'qa',
   database: {
-    host: process.env.DB_HOST || 'qa-sg-carro-dealer-01.c1duhxueuzpz.ap-southeast-1.rds.amazonaws.com',
-    user: process.env.DB_USER || 'safira',
-    password: process.env.DB_PASSWORD || 'root',
-    name: process.env.DB_NAME || 'dealer',
+    host: process.env.DB_HOST || '',
+    user: process.env.DB_USER || '',
+    password: process.env.DB_PASSWORD || '',
+    name: process.env.DB_NAME || '',
     port: parseInt(process.env.DB_PORT || '3306'),
   },
   credentials: {

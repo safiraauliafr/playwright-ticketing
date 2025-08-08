@@ -1,4 +1,4 @@
-# Carro Automation Script Project - TODO List
+# Automation Script Project - TODO List
 
 ## Project Overview
 
